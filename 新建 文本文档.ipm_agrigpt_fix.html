@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPM-AgriGPT: 智能病虫害管理系统</title>
+    <style>
+        /* 1. 基础样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8F8F8; /* 浅灰色背景 */
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* 2. 头部导航栏 */
+        header {
+            background-color: #4CAF50; /* 农业绿色 */
+            color: #FFFFFF;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* 3. 主要内容区 */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* 4. 聊天界面样式 */
+        .chat-section {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+
+        .chat-box {
+            height: 350px;
+            overflow-y: auto;
+            border: 1px solid #E0E0E0;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #FAFAFA;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            clear: both;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 75%;
+        }
+
+        .user-message {
+            float: right;
+            background-color: #DCF8C6; /* 用户消息绿色 */
+            border-radius: 18px 18px 0 18px;
+        }
+
+        .gpt-message {
+            float: left;
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 18px 18px 18px 0;
+        }
+        
+        /* 清除浮动，避免布局错乱 */
+        .chat-box::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .input-group {
+            display: flex;
+        }
+
+        .input-group input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #CCCCCC;
+            border-radius: 6px 0 0 6px;
+            font-size: 16px;
+        }
+
+        .input-group button {
+            background-color: #388E3C; /* 深绿色 */
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .input-group button:hover {
+            background-color: #2E7D32;
+        }
+
+        /* 5. 底部 */
+        footer {
+            background-color: #333;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+        
+        .share-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        IPM-AgriGPT 智能病虫害管理演示
+    </header>
+
+    <div class="container">
+        
+        <section class="chat-section">
+            <h2 style="color: #388E3C; text-align: center; margin-bottom: 20px;">
+                💬 请描述您作物遇到的问题
+            </h2>
+            
+            <div id="chatBox" class="chat-box">
+                <div class="message gpt-message">
+                    您好！我是 IPM-AgriGPT，请描述您作物遇到的问题（如：番茄叶子发黄），我将为您提供专业的病虫害管理（IPM）建议。
+                </div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="userInput" placeholder="输入您的问题，例如：'我的小麦得了锈病怎么办？'" onkeydown="if(event.key === 'Enter') sendMessage()">
+                <button onclick="sendMessage()">发送</button>
+            </div>
+        </section>
+        
+        <section style="text-align: center; padding: 20px; background-color: white; border-radius: 10px; margin-top: 20px;">
+            <h3>论文核心技术展示</h3>
+            <p><strong>G-EA 框架：</strong> 通过高质量语料生成，保障知识准确性。</p>
+            <p><strong>ACR-CoTD：</strong> 增强农业情景下的专业推理能力。</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 IPM-AgriGPT 复现项目.</p>
+        <button class="share-button" onclick="shareWebsite()">一键分享此网站</button>
+    </footer>
+
+    <script>
+        // JavaScript 模拟功能
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const chatBox = document.getElementById('chatBox');
+            const userText = inputField.value.trim();
+
+            if (userText === '') return;
+
+            // 1. 显示用户消息
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'message user-message';
+            userMsgDiv.textContent = userText;
+            chatBox.appendChild(userMsgDiv);
+
+            // 2. 模拟 GPT 模型响应
+            let gptResponse = "您的提问非常专业！由于模型未实际部署，我将为您提供一条通用且专业的IPM建议：请务必先确认病害类型，然后选择农业防治、生物防治，最后才考虑对环境影响最小的化学防治方案。";
+            
+            if (userText.includes("锈病") || userText.includes("小麦")) {
+                gptResponse = "针对**小麦锈病**，我们建议：首先，选择抗病品种；其次，在发病初期（出现少量病斑时），立即喷施三唑酮或烯唑醇等专业药剂，并注意轮换用药，防止产生抗药性。请密切关注天气变化。";
+            } else if (userText.includes("蚜虫") || userText.includes("叶子卷曲")) {
+                gptResponse = "这是典型的蚜虫危害症状。IPM方案建议您：首先，保护和利用自然天敌（如瓢虫、草蛉）；其次，可选用生物农药（如印楝素、苦参碱）进行喷洒；若危害严重，再考虑高效低毒的化学杀虫剂局部喷施。";
+            } 
+
+            // 延迟模拟打字效果
+            setTimeout(() => {
+                const gptMsgDiv = document.createElement('div');
+                gptMsgDiv.className = 'message gpt-message';
+                gptMsgDiv.textContent = gptResponse;
+                chatBox.appendChild(gptMsgDiv);
+
+                // 保持滚动条在底部
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 800);
+
+            // 3. 清空输入框并重新聚焦
+            inputField.value = '';
+            inputField.focus(); 
+        }
+
+        // JavaScript 分享功能
+        function shareWebsite() {
+            const dummyLink = "http://ipm-agrigpt.yourdomain.com/demo";
+            
+            navigator.clipboard.writeText(dummyLink).then(() => {
+                alert("网站链接已复制到剪贴板！\n(此为模拟链接，实际部署后替换为您自己的 URL)");
+            }).catch(err => {
+                alert("请手动复制此链接进行分享: " + dummyLink);
+            });
+        }
+
+    </script>
+</body>
+</html>
